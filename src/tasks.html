@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач</title>
+    <link rel="stylesheet" href="Styles/style.css">
+    <link rel="icon" href="Image/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <dialog id="taskModal" class="modal">
+    <div class="modal-content">
+        <h2>Добавить задачу</h2>
+        <form id="taskForm">
+            <label for="taskInput">Введите задачу:</label>
+            <textarea id="taskInput" placeholder="Новая задача" required="" style="height: 100px;"></textarea>
+            <br><br>
+            <button type="submit">Добавить задачу</button>
+            <button type="button" id="cancelBtn">Отмена</button>
+        </form>
+    </div>
+  </dialog>
+
+    <header>
+        <div class="logo">Моё приложение</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="projects.html">Проекты</a></li>
+                <li><a href="tasks.html" class="active">Список задач</a></li>
+                <li><a href="about.html">О приложении</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Список задач</h1>
+        <button id="addTaskBtn">Добавить задачу</button>
+
+        <!-- Колонки задач -->
+        <div class="boards">
+            <div class="board" data-status="todo">
+                <h2>К выполнению</h2>
+                <div class="task-list" id="todoList"></div>
+            </div>
+            <div class="board" data-status="in-progress">
+                <h2>В работе</h2>
+                <div class="task-list" id="inProgressList"></div>
+            </div>
+            <div class="board" data-status="done">
+                <h2>Выполнено</h2>
+                <div class="task-list" id="doneList"></div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="Scripts/script.js"></script>
+    <script src="Scripts/burgerMenu.js"></script>
+    <script src="bundle.js"></script>.
+</body>
+</html>
