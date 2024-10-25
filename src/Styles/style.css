@@ -1,0 +1,392 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Shadows Into Light', cursive;
+    background-color: #f7f1e5;
+    color: #333;
+    font-size: calc(1.5vw);
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 5px;
+    background-color: #ffe8c6;
+    z-index: 100;
+    top: 0;
+}
+main {
+    margin-top: 40px;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.about-app {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff9c4; /* Светло-желтый фон для имитации листка */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: 'Caveat', cursive; /* Используем рукописный шрифт */
+    line-height: 1.6;
+    color: #333;
+    border: 1px solid #e0c066; /* Имитируем край листка */
+}
+
+.about-app h2 {
+    text-align: center;
+    font-size: 32px;
+    color: #6d4c41; /* Цвет похож на карандашный */
+    margin-bottom: 20px;
+    border-bottom: 2px dashed #6d4c41; /* Пунктирная линия как отрывание листа */
+    padding-bottom: 10px;
+}
+
+.about-app p {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #5d4037; /* Цвет текста ближе к карандашному */
+}
+
+.about-app strong {
+    color: #5d4037;
+    font-weight: bold;
+}
+
+.about-app ul, .about-app ol {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.about-app ul {
+    list-style-type: square; /* Список с квадратиками, как на заметках */
+}
+
+.about-app ol {
+    list-style-type: decimal;
+}
+
+.about-app li {
+    margin-bottom: 8px;
+    color: #5d4037; /* Цвет текста для элементов списка */
+}
+
+.about-app ul li ul, .about-app ol li ul {
+    list-style-type: circle;
+    margin-top: 5px;
+}
+
+.about-app h3 {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #6d4c41;
+    border-bottom: 1px dashed #6d4c41;
+    padding-bottom: 5px;
+}
+
+/* Дополнительный стиль для шрифта Caveat */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+
+
+.center-container {
+    display: flex;
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center;     /* Центрирование по вертикали */
+    height: 100vh;           /* Занять всю высоту экрана */
+}
+
+#addTaskBtn {
+    display: block;
+    margin: 0 auto 20px auto;
+    padding: 10px 20px;
+    background-color: #d9c8a3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.boards {
+    display: flex;
+    justify-content: space-between;
+}
+
+.board {
+    background-color: #fff;
+    width: 30%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.board h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.task {
+    background-color: #f4d7aa;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: grab;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 40px; /* Минимальная высота задачи */
+    max-width: 100%; /* Чтобы задачи не превышали размер контейнера */
+    word-wrap: break-word; /* Перенос слов */
+    overflow: hidden; /* Обрезка текста, чтобы не выходил за пределы */
+    overflow-wrap: break-word; /* Обрабатывает длинные слова */
+    white-space: normal; /* Позволяет переносить строки внутри блока */
+    hyphens: auto; /* Автоматические переносы слов */
+}
+
+.edit-input {
+    width: 100%; /* Ширина 100% от родительского элемента */
+    height: 100px; /* Фиксированная высота */
+    resize: none; /* Запретить изменение размера пользователем */
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+    padding: 10px; /* Отступ для удобства */
+    border: 1px solid #ccc; /* Оформление границы */
+    border-radius: 4px; /* Закругленные углы */
+    box-sizing: border-box; /* Учитываем padding и border в ширине и высоте */
+}
+
+.task p {
+    margin: 0;
+    white-space: pre-wrap; /* Чтобы сохранялись переносы строк */
+    word-wrap: break-word; /* Перенос слов, если они слишком длинные */
+    width: 100%;
+}
+
+
+.task:hover .delete-btn {
+    color: red;
+    display: block;
+}
+
+.delete-btn {
+    display: none;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.task.dragging {
+    opacity: 0.5;
+}
+
+/* Стили для бургер-меню */
+.burger {
+    cursor: pointer;
+    display: none;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.nav-links li a{
+    color: #000000;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: row; 
+    gap: 15px;
+    list-style: none;
+}
+
+/* Стили для активного элемента меню */
+.nav-links li a.active {
+    background-color: #f8ee91; /* Пастельный цвет для выделения */
+    color: #333;
+    cursor: default; /* Курсор указывает на то, что элемент не кликабельный */
+    pointer-events: none; /* Отключить возможность нажатия */
+}
+
+/* Добавим плавный переход для стиля */
+.nav-links li a {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Стили для других ссылок */
+.nav-links li a:hover {
+    background-color: #ccc; /* Цвет при наведении */
+    color: #fff;
+}
+
+/* Стиль для редактирования задачи */
+.edit-input {
+    font-size: 16px;
+    padding: 8px; /* Небольшой внутренний отступ */
+    border: 1px solid #ccc; /* Рамка вокруг поля */
+    border-radius: 4px;
+    box-sizing: border-box; /* Учитываем рамки и паддинги */
+    width: 100%; /* Ширина по размеру блока задачи */
+    height: 100%; /* Высота по размеру блока задачи */
+    line-height: 1.5; /* Для удобного чтения и редактирования текста */
+    resize: none; /* Запрет изменения размеров */
+    overflow: hidden; /* Обрезка текста, чтобы не выходил за пределы поля */
+    text-align: left; /* Выравнивание текста по левому краю */
+    white-space: normal; /* Позволяет переноси строк внутри поля */
+    word-wrap: break-word; /* Перенос слов, если они слишком длинные */
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    resize: none;
+}
+
+/* Чтобы убрать рамку при получении фокуса */
+.edit-input:focus {
+    outline: none; /* Убираем стандартное обрамление */
+    border-color: #66afe9; /* Изменяем цвет рамки при фокусе */
+}
+
+/* Стиль для модального окна */
+.modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    z-index: 1000; /* Поверх всего контента, включая шапку */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Затемнение фона */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Стиль для textarea (поле ввода задачи) */
+#taskInput {
+    width: 100%;
+    min-height: 47px;
+    height: auto; /* Убираем фиксированную высоту */
+    padding: 5px; /* Небольшие отступы */
+    border: 1px solid #ccc; /* Стандартная рамка */
+    border-radius: 4px; /* Немного закругляем углы */
+    box-sizing: border-box; /* Учитываем отступы и рамку */
+    font-size: 16px; /* Размер шрифта для удобства */
+    resize: vertical; /* Разрешаем изменение размера по вертикали */
+}
+
+/* Кнопки внутри модального окна */
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Кнопка отмены */
+#cancelBtn {
+    background-color: #f44336;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Добавление плавности */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px; /* Ширина окна */
+    max-width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+@media screen and (max-width: 768px) {
+
+    body {
+        font-size: calc(12vw);
+    }
+
+    .nav-links {
+        position: fixed;
+        right: 0;
+        height: calc(100vh - 70px);
+        top: 55px;
+        background-color: #c4c4a0;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+        z-index: 10;
+        gap: 10px;
+        padding: 15px;
+        list-style: none;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    .nav-active {
+        transform: translateX(0);
+    }
+
+    .burger.toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .burger.toggle .line2 {
+        opacity: 0;
+    }
+
+    .burger.toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    .nav-links li {
+        margin-right: auto;
+        opacity: 0;
+    }
+    
+    .nav-active li {
+        opacity: 1;
+        transition: opacity 0.5s ease-in;
+    }
+    
+}
