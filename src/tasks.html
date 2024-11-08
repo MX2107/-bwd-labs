@@ -45,15 +45,27 @@
         <!-- Колонки задач -->
         <div class="boards">
             <div class="board" data-status="todo">
-                <h2>К выполнению</h2>
+                <h2>К работе</h2>
+                <div class="sort-buttons-container">
+                    <button id="sortAscBtn" class="sort-btn">Абв↑</button>
+                    <button id="sortDescBtn" class="sort-btn">Абв↓</button>
+                </div>
                 <div class="task-list" id="todoList"></div>
             </div>
             <div class="board" data-status="in-progress">
                 <h2>В работе</h2>
+                <div class="sort-buttons-container">
+                    <button id="sortAscBtn" class="sort-btn">Абв↑</button>
+                    <button id="sortDescBtn" class="sort-btn">Абв↓</button>
+                </div>
                 <div class="task-list" id="inProgressList"></div>
             </div>
             <div class="board" data-status="done">
                 <h2>Выполнено</h2>
+                <div class="sort-buttons-container">
+                    <button id="sortAscBtn" class="sort-btn">Абв↑</button>
+                    <button id="sortDescBtn" class="sort-btn">Абв↓</button>
+                </div>
                 <div class="task-list" id="doneList"></div>
             </div>
         </div>
@@ -61,6 +73,5 @@
     
     <script src="Scripts/script.js"></script>
     <script src="Scripts/burgerMenu.js"></script>
-    <script src="bundle.js"></script>.
 </body>
 </html>

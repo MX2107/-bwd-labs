@@ -10,7 +10,9 @@ const elements = {
     cancelBtn: document.getElementById('cancelBtn'),
     todoList: document.getElementById('todoList'),
     inProgressList: document.getElementById('inProgressList'),
-    doneList: document.getElementById('doneList')
+    doneList: document.getElementById('doneList'),
+    sortAscBtn: document.getElementById('sortAscBtn'),
+    sortDescBtn: document.getElementById('sortDescBtn')
 };
 
 // Открытие/закрытие модального окна
@@ -178,3 +180,34 @@ function getTaskList(status) {
         'done': elements.doneList
     }[status];
 }
+
+elements.sortAscBtn.addEventListener('click', () => sortTasks(true));
+elements.sortDescBtn.addEventListener('click', () => sortTasks(false));
+
+function sortTasks(isAscending) {
+    tasks.sort((a, b) => {
+        if (isAscending) {
+            return a.name.localeCompare(b.name);
+        } else {
+            return b.name.localeCompare(a.name);
+        }
+    });
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    refreshTaskBoard();
+}
+
+function refreshTaskBoard() {
+    // Очищаем все колонки
+    elements.todoList.innerHTML = '';
+    elements.inProgressList.innerHTML = '';
+    elements.doneList.innerHTML = '';
+
+    // Перебираем и добавляем задачи в соответствующие колонки снова
+    tasks.forEach(addTaskToBoard);
+}
+
+// Загрузка задач при загрузке страницы
+window.onload = () => {
+    tasks.forEach(addTaskToBoard);
+};
