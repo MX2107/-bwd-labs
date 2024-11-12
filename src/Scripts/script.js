@@ -79,7 +79,7 @@ function createTaskElement(task) {
 
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete-btn');
-    deleteBtn.innerHTML = '&times;';
+    deleteBtn.innerHTML = '×';
     deleteBtn.addEventListener('click', () => deleteTask(task.id));
 
     taskDiv.append(taskText, deleteBtn);
@@ -94,13 +94,9 @@ function editTask(taskDiv, task) {
     const input = document.createElement('textarea');
     input.value = task.name;
     input.classList.add('edit-input');
-
-    // Устанавливаем фиксированную высоту для текстового поля
     input.style.height = '100px'; // Задаем фиксированную высоту
 
-    // Обработчик для события прокрутки
     input.addEventListener('wheel', (e) => {
-        // Если текст больше, чем текстовое поле, то прокрутка должна работать
         if (input.scrollHeight > input.clientHeight) {
             e.stopPropagation(); // Остановить всплытие события
         }
@@ -185,16 +181,32 @@ elements.sortAscBtn.addEventListener('click', () => sortTasks(true));
 elements.sortDescBtn.addEventListener('click', () => sortTasks(false));
 
 function sortTasks(isAscending) {
-    tasks.sort((a, b) => {
-        if (isAscending) {
-            return a.name.localeCompare(b.name);
-        } else {
-            return b.name.localeCompare(a.name);
-        }
-    });
+    // Создаем отдельные массивы для каждой колонки
+    const todoTasks = tasks.filter(task => task.status === 'todo');
+    const inProgressTasks = tasks.filter(task => task.status === 'in-progress');
+    const doneTasks = tasks.filter(task => task.status === 'done');
 
+    // Сортируем каждый массив отдельно
+    const sortedTodoTasks = sortIndividualArray(todoTasks, isAscending);
+    const sortedInProgressTasks = sortIndividualArray(inProgressTasks, isAscending);
+    const sortedDoneTasks = sortIndividualArray(doneTasks, isAscending);
+
+    // Обновляем основной массив задач в зависимости от статуса
+    tasks = [...sortedTodoTasks, ...sortedInProgressTasks, ...sortedDoneTasks];
+    
+    // Сохраняем в localStorage
     localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    // Обновляем интерфейс
     refreshTaskBoard();
+}
+
+function sortIndividualArray(taskArray, isAscending) {
+    return taskArray.sort((a, b) => {
+        return isAscending 
+            ? a.name.localeCompare(b.name) 
+            : b.name.localeCompare(a.name);
+    });
 }
 
 function refreshTaskBoard() {
